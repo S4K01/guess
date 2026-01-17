@@ -11,6 +11,7 @@ let win = document.querySelector('.winning');
 let lostBtn = document.querySelector('.losing button');
 // let score = Number(document.querySelector('.score').textContent);
 let score = 20;
+let hC = 0;
 
 // ? remember u have many things like score by dom and two ways of reset
 
@@ -27,11 +28,14 @@ checkBtn.addEventListener('click', function () {
     message.className = 'message-edit';
   } else if (guessNum === trueNum) {
     message.textContent = `🙌 Correct`;
-    document.querySelector('.highscore').textContent = score;
-    localStorage.setItem(
-      'highScore',
-      (document.querySelector('.highscore').textContent = score)
-    );
+    if (score > hC) {
+      hC = score;
+      document.querySelector('.highscore').textContent = hC;
+      localStorage.setItem(
+        'highScore',
+        (document.querySelector('.highscore').textContent = hC)
+      );
+    }
     document.body.style.backgroundColor = '#60b347';
     document.querySelector('.number').textContent = trueNum;
     // setTimeout(function(){
@@ -64,6 +68,8 @@ checkBtn.addEventListener('click', function () {
 });
 
 // local storage
+
+hC = Number(localStorage.getItem('highScore'));
 
 document.querySelector('.highscore').textContent =
   localStorage.getItem('highScore');
